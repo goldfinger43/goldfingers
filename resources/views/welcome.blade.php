@@ -10,7 +10,7 @@
         <meta charset="utf-8" name="csrf-token" value="{{ csrf_token() }}">
         
         {{-- Styles --}}
-        <link rel="stylesheet" type="text/css" href="/css/app.css">
+        <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css')}} ">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
@@ -19,6 +19,6 @@
             <router-view></router-view>
         </div>
 
-        <script type="text/javascript" src="/js/app.js"></script>
+        <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>

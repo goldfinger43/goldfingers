@@ -24,127 +24,37 @@
                     <form @submit.prevent="submit" @keydown="form.errors.clear($event.target.name)">
                         <div class="columns">
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" type="text" name="vorname" placeholder="Vorname" v-model="form.vorname">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('vorname')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('vorname')" v-text="form.errors.get('vorname')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="vorname" placeholder="Vorname" :error="form.errors.get('vorname')" v-model="form.vorname"></bu-input>
                             </div>
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" name="nachname" type="text" placeholder="Nachname" v-model="form.nachname">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('nachname')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('nachname')" v-text="form.errors.get('nachname')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="nachname" placeholder="Nachname" :error="form.errors.get('nachname')" v-model="form.nachname"></bu-input>
                             </div>
                         </div>
                         <div class="columns">
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" type="text" name="geburtsdatum" placeholder="Geburtsdatum" v-model="form.geburtsdatum" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" title="Bitte gib folgendes Format ein: tt.mm.yyy">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('geburtsdatum')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('geburtsdatum')" v-text="form.errors.get('geburtsdatum')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="geburtsdatum" placeholder="Geburtsdatum" :error="form.errors.get('geburtsdatum')" v-model="form.geburtsdatum" title="Bitte gib folgendes Format ein: tt.mm.yyy" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"></bu-input>
                             </div>
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" name="dfv_nr" type="text" placeholder="DfV-Nummer" v-model="form.dfv_nr">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('dfv_nr')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('dfv_nr')" v-text="form.errors.get('dfv_nr')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="dfv_nr" placeholder="DfV-Nummer" :error="form.errors.get('dfv_nr')" v-model="form.dfv_nr"></bu-input>
                             </div>
                         </div>
                         <div class="columns">
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" type="email" name="email" placeholder="E-Mailadresse" v-model="form.email">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('email')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('email')" v-text="form.errors.get('email')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="email" placeholder="E-Mailadresse" :error="form.errors.get('email')" v-model="form.email" type="email"></bu-input>
                             </div>
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" name="phone" type="text" placeholder="Telefonnummer" v-model="form.phone">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('phone')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('phone')" v-text="form.errors.get('phone')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="phone" placeholder="Telefonnummer" :error="form.errors.get('phone')" v-model="form.phone"></bu-input>
                             </div>
                         </div>
                         <div class="columns">
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" type="text" name="strasse_nr" placeholder="Straße + Hausnummer" v-model="form.strasse_nr">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('strasse_nr')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('strasse_nr')" v-text="form.errors.get('strasse_nr')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="strasse_nr" placeholder="Straße + Hausnummer" :error="form.errors.get('strasse_nr')" v-model="form.strasse_nr"></bu-input>
                             </div>
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" name="plz" type="text" placeholder="Postleitzahl" v-model="form.plz">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('plz')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('plz')" v-text="form.errors.get('plz')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="plz" placeholder="Postleitzahl" :error="form.errors.get('plz')" v-model="form.plz"></bu-input>
                             </div>
                             <div class="column">
-                                <div class="field">
-                                    <div class="control ">
-                                        <div class="control has-icons-right ">
-                                            <input class="input" name="ort" type="text" placeholder="Ort" v-model="form.ort">
-                                            <span class="icon is-small is-right" v-if="form.errors.has('ort')">
-                                                <i class="fa fa-warning"></i>
-                                            </span>
-                                        </div>
-                                        <p class="help is-danger" v-if="form.errors.has('ort')" v-text="form.errors.get('ort')"></p>
-                                    </div>
-                                </div>
+                                <bu-input name="ort" placeholder="Ort" :error="form.errors.get('ort')" v-model="form.ort"></bu-input>
                             </div>
                         </div>
                         <div class="columns">
