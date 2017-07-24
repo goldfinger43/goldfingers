@@ -3,6 +3,7 @@
         <navigation></navigation>
 
         <div>
+            <loader></loader>
             <router-view></router-view>
         </div>
     </div>
@@ -16,20 +17,6 @@
 
         components: {
             'navigation': Navigation
-        },
-
-        data () {
-            return {
-
-            }
-        },
-
-        methods: {
-
-        },
-
-        mounted () {
-
         },
     }
 </script>

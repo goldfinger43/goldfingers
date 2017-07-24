@@ -39,7 +39,12 @@
                                 <th>Telefon</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody v-if="users">
+                            <tr>
+                                <td>users</td>
+                            </tr>
+                        </tbody>
+                        <tbody v-else>
                             <tr>
                                 <td>Keine Mitglieder vorhanden</td>
                             </tr>
@@ -58,16 +63,29 @@ export default {
 
     data () {
         return {
-
+            users: null
         }
     },
 
     methods: {
+        fetchUsers() {
+            axios.get('/api/user')
+                .then( (response) => {
+                    this.users = response.data;
+                    Event.fire('loaded');
+                } )
 
+
+        }
     },
 
     mounted () {
+        this.fetchUsers();
+    },
 
+    beforeRouteEnter (to, from, next) {
+        Event.fire('loading');
+        next();
     },
 }
 </script>
