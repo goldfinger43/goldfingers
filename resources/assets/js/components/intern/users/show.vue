@@ -28,6 +28,9 @@
                             <li>
                                 <router-link :to="{ name: 'users-edit', params: { slug: user.slug } }" exact>Stammdaten bearbeiten</router-link>
                             </li>
+                            <li>
+                                <a @click.prevent="deleteUser" class="has-text-danger">Mitglied löschen</a>
+                            </li>
                         </ul>
                     </aside>
                 </div>
@@ -101,6 +104,12 @@ export default {
     methods: {
         setUser(user) {
             this.user = user;
+        },
+        deleteUser() {
+            axios.delete('/api/user/' + this.user.slug)
+                .then( (response) => {
+                    this.$router.push({ name: 'users-index' });
+                });
         }
     },
 
