@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -30,6 +31,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['fullname'];
+
+    protected $dates = [ 'created_at', 'updated_at', 'geburtsdatum' ];
+
+    /**
      * Get the options for generating the slug.
      */
     public function getSlugOptions()
@@ -38,4 +48,33 @@ class User extends Authenticatable
             ->generateSlugsFrom(['vorname', 'nachname'])
             ->saveSlugsTo('slug');
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function setGeburtsdatumAttribute($date)
+    {
+        if ($date) {
+            $this->attributes['geburtsdatum'] = Carbon::createFromFormat('d.m.Y', $date);
+        }
+    }
+
+    public function getGeburtsdatumAttribute($date)
+    {
+        return $date ? Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d.m.Y') : '';
+    }
+
+    public function getFullnameAttribute()
+    {
+        return $this->vorname . " " . $this->nachname;
+    }
+
+
 }

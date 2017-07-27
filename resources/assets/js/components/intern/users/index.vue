@@ -27,6 +27,17 @@
                                 <router-link :to="{ name: 'users-create' }" >Mitglied hinzufügen</router-link>
                             </li>
                         </ul>
+                        <p class="menu-label">Filter</p>
+                        <ul class="menu-list">
+                            <li>
+                                <a >Damen</a>
+                                <a >Männer</a>
+                                <a >Masters</a>
+                                <a >Jugend</a>
+                                <a >Ermäßigt</a>
+                                <a >Vollzahler</a>
+                            </li>
+                        </ul>
                     </aside>
                 </div>
                 <div class="column is-8">
@@ -37,11 +48,22 @@
                                 <th>Geburtsdatum</th>
                                 <th>E-Mail</th>
                                 <th>Telefon</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody v-if="users">
-                            <tr>
-                                <td>users</td>
+                            <tr v-for="user in users">
+                                <td><router-link :to="{ name: 'users-show', params: { slug: user.slug }}">{{ user.fullname }}</router-link></td>
+                                <td>{{ user.geburtsdatum }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.phone }}</td>
+                                <td>
+                                    <a class="">
+                                        <span class="icon">
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                         <tbody v-else>
@@ -74,8 +96,6 @@ export default {
                     this.users = response.data;
                     Event.fire('loaded');
                 } )
-
-
         }
     },
 

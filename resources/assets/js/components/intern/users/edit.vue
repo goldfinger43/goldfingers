@@ -14,7 +14,8 @@
                         <ul>
                             <li><a>Mitglieder</a></li>
                             <li><router-link :to="{ name: 'users-index' }">Übersicht</router-link></li>
-                            <li class="is-active"><a>Hinzufügen</a></li>
+                            <li><router-link :to="{ name: 'users-show' ,params: { slug: user.slug } }">{{ user.fullname }}</router-link></li>
+                            <li class="is-active"><a>Bearbeiten</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -60,7 +61,7 @@
                         <div class="columns">
                             <div class="column">
                                 <div class="control">
-                                    <button type="submit" class="button is-primary" :disabled="form.errors.any()">Create</button>
+                                    <button type="submit" class="button is-primary" :disabled="form.errors.any()">Speichern</button>
                                 </div>
                             </div>
                         </div>
@@ -74,32 +75,40 @@
 <script>
 
 export default {
-    name: 'users-create',
+    name: 'users-edit',
 
     data () {
         return {
-            form: new Form({
-                vorname: '',
-                nachname: '',
-                email: '',
-                phone: '',
-                strasse_nr: '',
-                plz: '',
-                ort: '',
-                geburtsdatum: '',
-                dfv_nr: '',
-                geschlecht: 'männlich'
-            })
+            user: {
+                slug: '' 
+            },
+            form: null,
         }
     },
 
     methods: {
         submit() {
             Event.fire('loading');
-            this.form.post('/api/user')
-                .then( (response) => { Event.fire('loaded'); })
+            this.form.patch('/api/user/' + this.user.slug)
+                .then( (response) => {
+                    this.$router.push({ name: 'users-show', params: { slug: response.slug } });
+                })
                 .catch( (errors) => { Event.fire('loaded'); })
+        },
+        setUser(user) {
+            this.user = user;
+            this.form = new Form(user);
         }
-    }
+    },
+
+    beforeRouteEnter (to, from, next) {
+        Event.fire('loading');
+
+        axios.get('/api/user/' + to.params.slug)
+            .then( (response) => {
+                Event.fire('loaded');
+                next(vm => vm.setUser(response.data))
+            } )
+    },
 }
 </script>

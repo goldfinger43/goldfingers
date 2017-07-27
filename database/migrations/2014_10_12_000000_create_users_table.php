@@ -24,9 +24,9 @@ class CreateUsersTable extends Migration
             $table->string('slug');
             $table->string('strasse_nr')->nullable();
             $table->string('ort')->nullable();
-            $table->integer('plz')->nullable();
+            $table->string('plz')->nullable();
             $table->date('geburtsdatum')->nullable();
-            $table->integer('dfv_nr')->nullable();
+            $table->string('dfv_nr')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
