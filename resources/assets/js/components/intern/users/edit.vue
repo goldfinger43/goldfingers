@@ -30,6 +30,14 @@
                             <div class="column">
                                 <bu-input name="nachname" placeholder="Nachname" :error="form.errors.get('nachname')" v-model="form.nachname"></bu-input>
                             </div>
+                            <div class="column">
+                                <div class="select is-fullwidth">
+                                    <select v-model="form.geschlecht">
+                                        <option>männlich</option>
+                                        <option>weiblich</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="columns">
                             <div class="column">

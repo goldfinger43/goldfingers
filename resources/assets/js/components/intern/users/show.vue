@@ -106,10 +106,21 @@ export default {
             this.user = user;
         },
         deleteUser() {
-            axios.delete('/api/user/' + this.user.slug)
-                .then( (response) => {
-                    this.$router.push({ name: 'users-index' });
-                });
+            this.$swal({
+                title: 'Sicher?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Jetzt löschen!',
+                cancelButtonText: 'Doch nicht!',
+                confirmButtonClass: 'button is-success',
+                cancelButtonClass: 'button is-danger has-ml-2',
+                buttonsStyling: false
+            }).then(() => {
+                axios.delete('/api/user/' + this.user.slug)
+                    .then( (response) => {
+                        this.$router.push({ name: 'users-index' });
+                    });
+            })
         }
     },
 

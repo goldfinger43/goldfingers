@@ -10,10 +10,15 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import Event from './services/EventBus';
-
 import Form from './services/Form';
 window.Form = Form;
 
+
+//register external packeges
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2);
+
+//register Router
 import VueRouter from 'vue-router';
 import { Routes } from './routes/all';
 

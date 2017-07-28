@@ -30,10 +30,10 @@
                         <p class="menu-label">Filter</p>
                         <ul class="menu-list">
                             <li>
-                                <a >Damen</a>
-                                <a >Männer</a>
-                                <a >Masters</a>
-                                <a >Jugend</a>
+                                <a @click="filter.damen = !filter.damen" :class="{ 'is-active' : filter.damen }">Damen</a>
+                                <a @click="filter.herren = !filter.herren" :class="{ 'is-active' : filter.herren }">Herren</a>
+                                <a :class="{ 'is-active' : filter.masters }">Masters</a>
+                                <a :class="{ 'is-active' : filter.jugend }">Jugend</a>
                                 <a >Ermäßigt</a>
                                 <a >Vollzahler</a>
                             </li>
@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody v-if="users">
-                            <tr v-for="user in users">
+                            <tr v-for="user in filteredUsers">
                                 <td><router-link :to="{ name: 'users-show', params: { slug: user.slug }}">{{ user.fullname }}</router-link></td>
                                 <td>{{ user.geburtsdatum }}</td>
                                 <td>{{ user.email }}</td>
@@ -85,7 +85,39 @@ export default {
 
     data () {
         return {
-            users: null
+            users: null,
+            filter: {
+                damen: false,
+                herren: false,
+                masters: false,
+                jugend: false,
+            }
+        }
+    },
+
+    computed: {
+        filteredUsers() {
+            return this.users.filter( (user) => {
+                if (this.hasFilter ){
+                    let filter = false;
+                    if (this.filter.damen) {
+                        filter = user.geschlecht == 'weiblich';
+                    }
+                    if (this.filter.herren && !filter) {
+                        filter = user.geschlecht == 'männlich';
+                    }
+                    return filter;
+                }
+                return true
+            })
+        },
+        hasFilter() {
+            for (let prop in this.filter) {
+                if (this.filter[prop]) {
+                    return true;
+                }
+            }
+            return false;
         }
     },
 
