@@ -128,16 +128,20 @@ export default {
                     this.users = response.data;
                     Event.fire('loaded');
                 } )
-        }
-    },
-
-    mounted () {
-        this.fetchUsers();
+        },
+        setUsers(users) {
+            this.users = users;
+        },
     },
 
     beforeRouteEnter (to, from, next) {
         Event.fire('loading');
-        next();
+
+        axios.get('/api/user')
+            .then( (response) => {
+                Event.fire('loaded');
+                next(vm => vm.setUsers(response.data))
+            } )
     },
 }
 </script>
