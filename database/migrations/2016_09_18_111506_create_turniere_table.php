@@ -26,6 +26,7 @@ class CreateTurniereTable extends Migration
             $table->float('teamfee')->nullable();
             $table->float('playersfee')->nullable();
             $table->string('untergrund');
+            $table->string('indoor_outdoor')->nullable();
             $table->string('slug');
             $table->string('status')->default('nicht angemeldet');
             $table->timestamps();

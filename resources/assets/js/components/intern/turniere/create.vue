@@ -34,30 +34,53 @@
                             </div>
                         </div>
                         <div class="columns">
-                            <div class="column">
-                                <bu-input name="geburtsdatum" placeholder="Geburtsdatum" :error="form.errors.get('geburtsdatum')" v-model="form.geburtsdatum" title="Bitte gib folgendes Format ein: tt.mm.yyyy" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"></bu-input>
-                            </div>
-                            <div class="column">
-                                <bu-input name="dfv_nr" placeholder="DfV-Nummer" :error="form.errors.get('dfv_nr')" v-model="form.dfv_nr"></bu-input>
-                            </div>
-                        </div>
-                        <div class="columns">
-                            <div class="column">
-                                <bu-input name="email" placeholder="E-Mailadresse" :error="form.errors.get('email')" v-model="form.email" type="email"></bu-input>
-                            </div>
-                            <div class="column">
-                                <bu-input name="phone" placeholder="Telefonnummer" :error="form.errors.get('phone')" v-model="form.phone"></bu-input>
-                            </div>
-                        </div>
-                        <div class="columns">
-                            <div class="column">
+                            <div class="column is-8">
                                 <bu-input name="strasse_nr" placeholder="Straße + Hausnummer" :error="form.errors.get('strasse_nr')" v-model="form.strasse_nr"></bu-input>
                             </div>
                             <div class="column">
-                                <bu-input name="plz" placeholder="Postleitzahl" :error="form.errors.get('plz')" v-model="form.plz"></bu-input>
+                                <bu-input name="plz" placeholder="PLZ" :error="form.errors.get('plz')" v-model="form.plz" ></bu-input>
+                                
                             </div>
+                        </div>
+                        <div class="columns">
                             <div class="column">
                                 <bu-input name="ort" placeholder="Ort" :error="form.errors.get('ort')" v-model="form.ort"></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="land" placeholder="Land" :error="form.errors.get('land')" v-model="form.land"></bu-input>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <label class="checkbox">
+                                    <input type="checkbox" v-model="form.untergrund" id="Rasen" value="Rasen">
+                                    Rasen
+                                </label>
+                                <label class="checkbox has-ml-2">
+                                    <input type="checkbox" v-model="form.untergrund" id="Halle" value="Halle">
+                                    Halle
+                                </label>
+                                <label class="checkbox has-ml-2">
+                                    <input type="checkbox" v-model="form.untergrund" id="Sand" value="Sand">
+                                    Sand
+                                </label>
+                            </div>
+                            <div class="column">
+                                <label class="checkbox">
+                                    <input type="checkbox" v-model="form.indoor_outdoor" id="indoor" value="Indoor">
+                                    Indoor
+                                </label>
+                                <label class="checkbox has-ml-2" >
+                                    <input type="checkbox" v-model="form.indoor_outdoor" id="outdoor" value="Outdoor">
+                                    Outdoor
+                                </label>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <div class="control">
+                                    <textarea class="textarea" placeholder="Beschreibung" v-model="form.beschreibung" name="beschreibung"></textarea>
+                                </div>
                             </div>
                         </div>
                         <div class="columns">
@@ -89,9 +112,9 @@ export default {
                 strasse_nr: '',
                 plz: '',
                 ort: '',
-                geburtsdatum: '',
-                dfv_nr: '',
-                geschlecht: 'männlich'
+                land: 'Deutschland',
+                untergrund: [],
+                indoor_outdoor: [],
             })
         }
     },
@@ -99,9 +122,9 @@ export default {
     methods: {
         submit() {
             Event.fire('loading');
-            this.form.post('/api/user')
+            this.form.post('/api/turnier')
                 .then( (response) => {
-                    this.$router.push({ name: 'users-index' });
+                    this.$router.push({ name: 'turniere-index' });
                 })
                 .catch( (errors) => { Event.fire('loaded'); })
         }

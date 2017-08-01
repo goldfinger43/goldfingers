@@ -16,7 +16,7 @@ class Turnier extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'von_datum', 'bis_datum', 'strasse_nr', 'ort', 'plz', 'land', 'beschreibung', 'teamfee', 'untergrund', 'status', 'slug'
+        'name', 'von_datum', 'bis_datum', 'strasse_nr', 'ort', 'plz', 'land', 'beschreibung', 'teamfee', 'untergrund', 'indoor_outdoor', 'status', 'slug'
     ];
 
     /**
@@ -27,6 +27,11 @@ class Turnier extends Model
     protected $appends = [];
 
     protected $dates = [ 'created_at', 'updated_at', 'von_datum', 'bis_datum'];
+
+    protected $casts = [
+        'untergrund' => 'array',
+        'indoor_outdoor' => 'array',
+    ];
 
     /**
      * Get the options for generating the slug.
