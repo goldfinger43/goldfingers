@@ -1,0 +1,110 @@
+<template>
+    <div>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title">Turnier hinzufügen</h1>
+                </div>
+            </div>
+        </section>
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-offset-2">
+                    <nav class="breadcrumb">
+                        <ul>
+                            <li><a>Turniere</a></li>
+                            <li><router-link :to="{ name: 'turniere-index' }">Übersicht</router-link></li>
+                            <li class="is-active"><a>Hinzufügen</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-offset-2-desktop is-8-desktop">
+                    <form @submit.prevent="submit" @keydown="form.errors.clear($event.target.name)">
+                        <div class="columns">
+                            <div class="column">
+                                <bu-input name="name" placeholder="Name" :error="form.errors.get('name')" v-model="form.name"></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="von_datum" placeholder="Startdatum tt.mm.jjjj" type="date" :error="form.errors.get('von_datum')" v-model="form.von_datum" ></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="bis_datum" placeholder="Enddatum tt.mm.jjjj" type="date" :error="form.errors.get('bis_datum')" v-model="form.bis_datum"></bu-input>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <bu-input name="geburtsdatum" placeholder="Geburtsdatum" :error="form.errors.get('geburtsdatum')" v-model="form.geburtsdatum" title="Bitte gib folgendes Format ein: tt.mm.yyyy" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="dfv_nr" placeholder="DfV-Nummer" :error="form.errors.get('dfv_nr')" v-model="form.dfv_nr"></bu-input>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <bu-input name="email" placeholder="E-Mailadresse" :error="form.errors.get('email')" v-model="form.email" type="email"></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="phone" placeholder="Telefonnummer" :error="form.errors.get('phone')" v-model="form.phone"></bu-input>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <bu-input name="strasse_nr" placeholder="Straße + Hausnummer" :error="form.errors.get('strasse_nr')" v-model="form.strasse_nr"></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="plz" placeholder="Postleitzahl" :error="form.errors.get('plz')" v-model="form.plz"></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="ort" placeholder="Ort" :error="form.errors.get('ort')" v-model="form.ort"></bu-input>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <div class="control">
+                                    <button type="submit" class="button is-primary" :disabled="form.errors.any()">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+export default {
+    name: 'users-create',
+
+    data () {
+        return {
+            form: new Form({
+                name: '',
+                von_datum: '',
+                bis_datum: '',
+                phone: '',
+                strasse_nr: '',
+                plz: '',
+                ort: '',
+                geburtsdatum: '',
+                dfv_nr: '',
+                geschlecht: 'männlich'
+            })
+        }
+    },
+
+    methods: {
+        submit() {
+            Event.fire('loading');
+            this.form.post('/api/user')
+                .then( (response) => {
+                    this.$router.push({ name: 'users-index' });
+                })
+                .catch( (errors) => { Event.fire('loaded'); })
+        }
+    }
+}
+</script>

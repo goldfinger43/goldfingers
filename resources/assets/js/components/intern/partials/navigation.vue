@@ -14,7 +14,7 @@
             <div class="navbar-end">
                 <router-link class="nav-item is-tab" :to="{ name: 'dashboard' }" exact>Dashboard</router-link>
 
-                <router-link class="nav-item is-tab" :to="{ name: 'login' }">Turniere</router-link>
+                <router-link class="nav-item is-tab" :to="{ name: 'turniere-index' }">Turniere</router-link>
 
                 <router-link class="nav-item is-tab" :to="{ name: 'login' }">Trainings</router-link>
 
@@ -30,19 +30,5 @@
 
 export default {
     name: 'intern-navigation',
-
-    data () {
-        return {
-
-        }
-    },
-
-    methods: {
-
-    },
-
-    mounted () {
-
-    },
 }
 </script>
