@@ -41,6 +41,16 @@ import loader from './components/global/loader.vue';
 Vue.component('loader', loader);
 
 /**
+ * Register custom directives
+ */
+Vue.directive('focus', {
+    inserted: function (el) {
+        el.querySelector('input').focus()
+    }
+})
+
+
+/**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.

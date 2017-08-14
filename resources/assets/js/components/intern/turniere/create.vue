@@ -39,7 +39,6 @@
                             </div>
                             <div class="column">
                                 <bu-input name="plz" placeholder="PLZ" :error="form.errors.get('plz')" v-model="form.plz" ></bu-input>
-                                
                             </div>
                         </div>
                         <div class="columns">
@@ -86,7 +85,7 @@
                         <div class="columns">
                             <div class="column">
                                 <div class="control">
-                                    <button type="submit" class="button is-primary" :disabled="form.errors.any()">Create</button>
+                                    <button type="submit" class="button is-primary" :disabled="form.errors.any()">Speichern</button>
                                 </div>
                             </div>
                         </div>
@@ -115,6 +114,7 @@ export default {
                 land: 'Deutschland',
                 untergrund: [],
                 indoor_outdoor: [],
+                beschreibung: ''
             })
         }
     },
@@ -122,7 +122,7 @@ export default {
     methods: {
         submit() {
             Event.fire('loading');
-            this.form.post('/api/turnier')
+            this.form.post('turnier')
                 .then( (response) => {
                     this.$router.push({ name: 'turniere-index' });
                 })

@@ -20,7 +20,7 @@ class CreateTurniereTable extends Migration
             $table->date('bis_datum');
             $table->string('strasse_nr')->nullable();
             $table->string('ort')->nullable();
-            $table->integer('plz')->nullable();
+            $table->string('plz')->nullable();
             $table->string('land')->nullable();
             $table->text('beschreibung')->nullable();
             $table->float('teamfee')->nullable();

@@ -123,7 +123,7 @@ export default {
 
     methods: {
         fetchUsers() {
-            axios.get('/api/user')
+            axios.get('user')
                 .then( (response) => {
                     this.users = response.data;
                     Event.fire('loaded');
@@ -137,7 +137,7 @@ export default {
     beforeRouteEnter (to, from, next) {
         Event.fire('loading');
 
-        axios.get('/api/user')
+        axios.get('user')
             .then( (response) => {
                 Event.fire('loaded');
                 next(vm => vm.setUsers(response.data))

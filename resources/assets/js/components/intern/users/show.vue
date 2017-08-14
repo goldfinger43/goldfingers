@@ -116,7 +116,7 @@ export default {
                 cancelButtonClass: 'button is-danger has-ml-2',
                 buttonsStyling: false
             }).then(() => {
-                axios.delete('/api/user/' + this.user.slug)
+                axios.delete('user/' + this.user.slug)
                     .then( (response) => {
                         this.$router.push({ name: 'users-index' });
                     });
@@ -127,7 +127,7 @@ export default {
     beforeRouteEnter (to, from, next) {
         Event.fire('loading');
 
-        axios.get('/api/user/' + to.params.slug)
+        axios.get('user/' + to.params.slug)
             .then( (response) => {
                 // let user = response.data;
                 Event.fire('loaded');

@@ -68,7 +68,7 @@
                         <div class="columns">
                             <div class="column">
                                 <div class="control">
-                                    <button type="submit" class="button is-primary" :disabled="form.errors.any()">Create</button>
+                                    <button type="submit" class="button is-primary" :disabled="form.errors.any()">Speichern</button>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ export default {
     methods: {
         submit() {
             Event.fire('loading');
-            this.form.post('/api/user')
+            this.form.post('user')
                 .then( (response) => {
                     this.$router.push({ name: 'users-index' });
                 })

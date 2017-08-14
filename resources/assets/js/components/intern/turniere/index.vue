@@ -3,7 +3,7 @@
         <section class="hero is-primary">
             <div class="hero-body">
                 <div class="container has-text-centered">
-                    <h1 class="title">Mitglieder</h1>
+                    <h1 class="title">Turniere</h1>
                 </div>
             </div>
         </section>
@@ -12,7 +12,7 @@
                 <div class="column is-offset-2">
                     <nav class="breadcrumb">
                         <ul>
-                            <li><a>Mitglieder</a></li>
+                            <li><a>Turniere</a></li>
                             <li class="is-active"><a>Übersicht</a></li>
                         </ul>
                     </nav>
@@ -24,18 +24,21 @@
                         <p class="menu-label">Aktionen</p>
                         <ul class="menu-list">
                             <li>
-                                <router-link :to="{ name: 'users-create' }" >Mitglied hinzufügen</router-link>
+                                <router-link :to="{ name: 'turniere-create' }" >Turnier hinzufügen</router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{ name: 'divisionen-index' }" >Divisionen verwalten</router-link>
                             </li>
                         </ul>
                         <p class="menu-label">Filter</p>
                         <ul class="menu-list">
                             <li>
-                                <a @click="filter.damen = !filter.damen" :class="{ 'is-active' : filter.damen }">Damen</a>
-                                <a @click="filter.herren = !filter.herren" :class="{ 'is-active' : filter.herren }">Herren</a>
-                                <a :class="{ 'is-active' : filter.masters }">Masters</a>
-                                <a :class="{ 'is-active' : filter.jugend }">Jugend</a>
-                                <a >Ermäßigt</a>
-                                <a >Vollzahler</a>
+                                <a @click="filter.damen = !filter.damen" :class="{ 'is-active' : filter.damen }">Open</a>
+                                <a @click="filter.herren = !filter.herren" :class="{ 'is-active' : filter.herren }">Damen</a>
+                                <a :class="{ 'is-active' : filter.masters }">Mixed</a>
+                                <a :class="{ 'is-active' : filter.jugend }">Outdoor</a>
+                                <a :class="{ 'is-active' : filter.jugend }">Indoor</a>
+                                <a :class="{ 'is-active' : filter.jugend }">DfV-Turniere</a>
                             </li>
                         </ul>
                     </aside>
@@ -45,18 +48,18 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Geburtsdatum</th>
-                                <th>E-Mail</th>
-                                <th>Telefon</th>
+                                <th>Datum</th>
+                                <th>Ort</th>
+                                <th>Divisionen</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody v-if="users">
-                            <tr v-for="user in filteredUsers">
-                                <td><router-link :to="{ name: 'users-show', params: { slug: user.slug }}">{{ user.fullname }}</router-link></td>
-                                <td>{{ user.geburtsdatum }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.phone }}</td>
+                        <tbody v-if="turniere">
+                            <tr v-for="turnier in filteredTurniere">
+                                <td><router-link :to="{ name: 'turniere-show', params: { slug: turnier.slug }}">{{ turnier.name }}</router-link></td>
+                                <td>{{ turnier.von_datum }} - {{ turnier.bis_datum }}</td>
+                                <td v-html="turnier.adresse"></td>
+                                <td></td>
                                 <td>
                                     <a class="">
                                         <span class="icon">
@@ -68,7 +71,7 @@
                         </tbody>
                         <tbody v-else>
                             <tr>
-                                <td>Keine Mitglieder vorhanden</td>
+                                <td>Keine Turniere vorhanden</td>
                             </tr>
                         </tbody>
                     </table>
@@ -81,11 +84,11 @@
 <script>
 
 export default {
-    name: 'users-index',
+    name: 'turniere-index',
 
     data () {
         return {
-            users: [],
+            turniere: [],
             filter: {
                 damen: false,
                 herren: false,
@@ -96,8 +99,8 @@ export default {
     },
 
     computed: {
-        filteredUsers() {
-            return this.users.filter( (user) => {
+        filteredTurniere() {
+            return this.turniere.filter( (user) => {
                 if (this.hasFilter ){
                     let filter = false;
                     if (this.filter.damen) {
@@ -122,25 +125,18 @@ export default {
     },
 
     methods: {
-        fetchUsers() {
-            axios.get('/api/user')
-                .then( (response) => {
-                    this.users = response.data;
-                    Event.fire('loaded');
-                } )
-        },
-        setUsers(users) {
-            this.users = users;
+        setTurniere(turniere) {
+            this.turniere = turniere;
         },
     },
 
     beforeRouteEnter (to, from, next) {
         Event.fire('loading');
 
-        axios.get('/api/user')
+        axios.get('turnier')
             .then( (response) => {
                 Event.fire('loaded');
-                next(vm => vm.setUsers(response.data))
+                next(vm => vm.setTurniere(response.data))
             } )
     },
 }

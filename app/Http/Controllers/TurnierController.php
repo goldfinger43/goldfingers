@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTurnierRequest;
+use App\Http\Requests\UpdateTurnierRequest;
 use App\Models\Turnier;
 use Illuminate\Http\Request;
 
@@ -14,17 +16,7 @@ class TurnierController extends Controller
      */
     public function index()
     {
-        return Turnier::coming();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Turnier::coming()->orderBy('von_datum')->get();
     }
 
     /**
@@ -33,9 +25,9 @@ class TurnierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTurnierRequest $request)
     {
-        //
+        return Turnier::create($request->all());
     }
 
     /**
@@ -46,7 +38,7 @@ class TurnierController extends Controller
      */
     public function show(Turnier $turnier)
     {
-        //
+        return $turnier;
     }
 
     /**
@@ -67,9 +59,9 @@ class TurnierController extends Controller
      * @param  \App\Models\Turnier  $turnier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Turnier $turnier)
+    public function update(UpdateTurnierRequest $request, Turnier $turnier)
     {
-        //
+        return $turnier->update($request->all()) ? $turnier : response('turnier could not be updated', 400);
     }
 
     /**
@@ -80,6 +72,6 @@ class TurnierController extends Controller
      */
     public function destroy(Turnier $turnier)
     {
-        //
+        return $turnier->delete() ? response('success', 200) : response('turnier could not be deleted', 400);
     }
 }

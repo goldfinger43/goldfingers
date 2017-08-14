@@ -97,7 +97,7 @@ export default {
     methods: {
         submit() {
             Event.fire('loading');
-            this.form.patch('/api/user/' + this.user.slug)
+            this.form.patch('user/' + this.user.slug)
                 .then( (response) => {
                     this.$router.push({ name: 'users-show', params: { slug: response.slug } });
                 })
@@ -112,7 +112,7 @@ export default {
     beforeRouteEnter (to, from, next) {
         Event.fire('loading');
 
-        axios.get('/api/user/' + to.params.slug)
+        axios.get('user/' + to.params.slug)
             .then( (response) => {
                 Event.fire('loaded');
                 next(vm => vm.setUser(response.data))
