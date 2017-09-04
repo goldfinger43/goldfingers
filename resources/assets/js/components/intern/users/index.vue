@@ -41,7 +41,7 @@
                     </aside>
                 </div>
                 <div class="column is-8">
-                    <table class="table">
+                    <table class="table is-fullwidth">
                         <thead>
                             <tr>
                                 <th>Name</th>

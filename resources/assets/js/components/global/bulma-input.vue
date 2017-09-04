@@ -2,7 +2,7 @@
     <div class="field">
         <div class="control " v-if="date">
             <div class="control has-icons-right ">
-                <cleave :placeholder="placeholder" :options="cleaveOptions" :title="title" :name="name" @input="updateValue($event)" class="input"></cleave>
+                <cleave :placeholder="placeholder" :options="cleaveOptions" :title="title" :name="name" @input="updateValue($event)" class="input" :class="{ 'is-danger': hasError }"></cleave>
                 <span class="icon is-small is-right" v-if="hasError">
                     <i class="fa fa-warning"></i>
                 </span>

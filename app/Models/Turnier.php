@@ -37,6 +37,13 @@ class Turnier extends Model
     ];
 
     /**
+     * The relationships to always eager-load.
+     *
+     * @var array
+     */
+    protected $with = ['divisionen'];
+
+    /**
      * Get the options for generating the slug.
      */
     public function getSlugOptions()
@@ -44,6 +51,11 @@ class Turnier extends Model
         return SlugOptions::create()
             ->generateSlugsFrom(['name', 'jahr'])
             ->saveSlugsTo('slug');
+    }
+
+    public function divisionen()
+    {
+        return $this->belongsToMany('App\Models\Division', 'division_turnier', 'turnier_id', 'division_id');
     }
 
     /**

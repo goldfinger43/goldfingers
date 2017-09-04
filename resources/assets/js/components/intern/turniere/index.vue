@@ -44,7 +44,7 @@
                     </aside>
                 </div>
                 <div class="column is-8">
-                    <table class="table">
+                    <table class="table is-fullwidth">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -59,7 +59,7 @@
                                 <td><router-link :to="{ name: 'turniere-show', params: { slug: turnier.slug }}">{{ turnier.name }}</router-link></td>
                                 <td>{{ turnier.von_datum }} - {{ turnier.bis_datum }}</td>
                                 <td v-html="turnier.adresse"></td>
-                                <td></td>
+                                <td><span class="tag is-light has-hm-02" v-for="division in turnier.divisionen">{{ division.name }}</span></td>
                                 <td>
                                     <a class="">
                                         <span class="icon">

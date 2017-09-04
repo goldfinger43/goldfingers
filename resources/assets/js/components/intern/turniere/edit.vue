@@ -78,6 +78,14 @@
                             </div>
                         </div>
                         <div class="columns">
+                            <div class="column " v-for="division in divisionen">
+                                <label class="checkbox" >
+                                    <input type="checkbox" v-model="form.divisionen" id="divisionen" :value="division.id" >
+                                    {{ division.name }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="columns">
                             <div class="column">
                                 <div class="control">
                                     <textarea class="textarea" placeholder="Beschreibung" v-model="form.beschreibung" name="beschreibung"></textarea>
@@ -109,6 +117,7 @@ export default {
                 slug: '' 
             },
             form: null,
+            divisionen: [],
         }
     },
 
@@ -121,20 +130,29 @@ export default {
                 })
                 .catch( (errors) => { Event.fire('loaded'); })
         },
-        setTurnier(turnier) {
+        setData(turnier, divisionen) {
             this.turnier = turnier;
+            this.divisionen = divisionen;
             this.form = new Form(turnier);
+            this.form.divisionen = this.form.divisionen.map((obj) => {return obj.id});
         }
     },
 
     beforeRouteEnter (to, from, next) {
         Event.fire('loading');
 
-        axios.get('turnier/' + to.params.slug)
-            .then( (response) => {
+        // axios.get('turnier/' + to.params.slug)
+        //     .then( (response) => {
+        //         Event.fire('loaded');
+        //         next(vm => vm.setTurnier(response.data))
+        //     } )
+
+        axios.all([ axios.get('turnier/' + to.params.slug), axios.get('division') ])
+            .then(axios.spread((turnier, division) => {
+                console.log(turnier, division);
                 Event.fire('loaded');
-                next(vm => vm.setTurnier(response.data))
-            } )
+                next(vm => vm.setData(turnier.data, division.data))
+            }))
     },
 }
 </script>

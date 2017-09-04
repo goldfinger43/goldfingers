@@ -76,6 +76,14 @@
                             </div>
                         </div>
                         <div class="columns">
+                            <div class="column " v-for="division in divisionen">
+                                <label class="checkbox" >
+                                    <input type="checkbox" v-model="form.divisionen" id="divisionen" :value="division.id">
+                                    {{ division.name }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="columns">
                             <div class="column">
                                 <div class="control">
                                     <textarea class="textarea" placeholder="Beschreibung" v-model="form.beschreibung" name="beschreibung"></textarea>
@@ -99,7 +107,7 @@
 <script>
 
 export default {
-    name: 'users-create',
+    name: 'turniere-create',
 
     data () {
         return {
@@ -114,8 +122,10 @@ export default {
                 land: 'Deutschland',
                 untergrund: [],
                 indoor_outdoor: [],
+                divisionen: [],
                 beschreibung: ''
-            })
+            }),
+            divisionen: {},
         }
     },
 
@@ -127,7 +137,21 @@ export default {
                     this.$router.push({ name: 'turniere-index' });
                 })
                 .catch( (errors) => { Event.fire('loaded'); })
+        },
+        setDivisionen(divisionen) {
+            this.divisionen = divisionen;
         }
+    },
+
+    beforeRouteEnter (to, from, next) {
+        Event.fire('loading');
+
+        axios.get('division')
+            .then( (response) => {
+                console.log(response);
+                Event.fire('loaded');
+                next(vm => vm.setDivisionen(response.data))
+            } )
     }
 }
 </script>

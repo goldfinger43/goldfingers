@@ -27,7 +27,11 @@ class TurnierController extends Controller
      */
     public function store(CreateTurnierRequest $request)
     {
-        return Turnier::create($request->all());
+        $turnier = Turnier::create($request->except('divisionen'));
+
+        $turnier->divisionen()->attach($request->divisionen);
+
+        return $turnier;
     }
 
     /**
@@ -42,17 +46,6 @@ class TurnierController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Turnier  $turnier
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Turnier $turnier)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -61,7 +54,9 @@ class TurnierController extends Controller
      */
     public function update(UpdateTurnierRequest $request, Turnier $turnier)
     {
-        return $turnier->update($request->all()) ? $turnier : response('turnier could not be updated', 400);
+        $turnier->divisionen()->sync($request->divisionen);
+
+        return $turnier->update($request->except('divisionen')) ? $turnier : response('turnier could not be updated', 400);
     }
 
     /**

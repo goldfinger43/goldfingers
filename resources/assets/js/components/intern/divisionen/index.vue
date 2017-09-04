@@ -34,7 +34,7 @@
                 <div class="column is-8">
                     <create v-if="create"></create>
                     <edit v-if="edit" :division="divisionToEdit"></edit>
-                    <table class="table">
+                    <table class="table is-fullwidth">
                         <thead>
                             <tr>
                                 <th>Name</th>
