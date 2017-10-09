@@ -58,6 +58,11 @@ class Turnier extends Model
         return $this->belongsToMany('App\Models\Division', 'division_turnier', 'turnier_id', 'division_id');
     }
 
+    public function teams()
+    {
+        return $this->hasMany('App\Models\Team');
+    }
+
     /**
      * Get the route key for the model.
      *
@@ -95,7 +100,7 @@ class Turnier extends Model
 
     public function getAdresseAttribute()
     {
-        return  $this->strasse_nr . 
+        return  $this->strasse_nr .
                 ($this->strasse_nr ? nl2br("\n") : "" ).
                 $this->plz .
                 ($this->plz ? " " : "") .

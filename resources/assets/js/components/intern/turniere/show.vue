@@ -20,7 +20,7 @@
                     </nav>
                 </div>
             </div>
-            
+
             <div class="columns">
                 <div class="column is-2">
                     <aside class="menu">
@@ -30,7 +30,7 @@
                                 <router-link :to="{ name: 'turniere-edit', params: { slug: turnier.slug } }" exact>Stammdaten bearbeiten</router-link>
                             </li>
                             <li>
-                                <a @click.prevent="" >Team hinzufügen</a>
+                                <a @click.prevent="add_team = true" >Team hinzufügen</a>
                             </li>
                             <li>
                                 <a @click.prevent="" >Finanzübersicht</a>
@@ -42,6 +42,7 @@
                     </aside>
                 </div>
                 <div class="column is-8">
+                    <team-create v-if="add_team" :turnier="turnier"></team-create>
                     <div class="columns">
                         <div class="column is-12">
                             <p class="title is-4 has-text-centered">Beschreibung</p>
@@ -55,7 +56,7 @@
                                                 </span>
                                             </div>
                                             <div class="column has-flex-start-center">
-                                                <p >{{ turnier.von_datum }} - {{ turnier.bis_datum }}</p> 
+                                                <p >{{ turnier.von_datum }} - {{ turnier.bis_datum }}</p>
                                             </div>
                                         </div>
                                         <div class="columns">
@@ -65,7 +66,7 @@
                                                 </span>
                                             </div>
                                             <div class="column has-flex-start-center">
-                                                <p v-html="turnier.adresse"></p> 
+                                                <p v-html="turnier.adresse"></p>
                                             </div>
                                         </div>
                                 </div>
@@ -81,46 +82,6 @@
                             <p class="title is-4 has-text-centered">Teams</p>
                             <hr>
                         </div>
-                        <div class="column is-6">
-                            <p class="title is-4 has-text-centered">Kontaktdaten</p>
-                            <hr>
-                            <div class="columns">
-                                <div class="column is-5 has-flex-end-center">
-                                    <span class="icon is-medium">
-                                        <i class="fa fa-map-marker"></i>
-                                    </span>
-                                </div>
-                                <div class="column has-flex-start-center">
-                                    <p >
-                                        
-                                    </p> 
-                                </div>
-                            </div>
-                            <div class="columns">
-                                <div class="column is-5 has-flex-end-center">
-                                    <span class="icon is-medium">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                </div>
-                                <div class="column has-flex-start-center">
-                                    <p >
-                                        
-                                    </p>   
-                                </div>
-                            </div>
-                            <div class="columns">
-                                <div class="column is-5 has-flex-end-center">
-                                    <span class="icon is-medium">
-                                        <i class="fa fa-phone"></i>
-                                    </span>
-                                </div>
-                                <div class="column has-flex-start-center">
-                                    <p >
-                                        
-                                    </p>  
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -130,14 +91,21 @@
 
 <script>
 
+import teamCreate from '../teams/create.vue';
+
 export default {
     name: 'turniere-show',
 
     props: ['slug'],
 
+    components: {
+        'team-create': teamCreate,
+    },
+
     data() {
         return {
             turnier: null,
+            add_team: false,
         }
     },
 
