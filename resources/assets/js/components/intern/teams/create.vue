@@ -7,11 +7,11 @@
                 </div>
                 <div class="column is-6">
                     <div class="field">
+                        <label class="label">Division</label>
                         <div class="control">
                             <div class="select has-fullwidth">
                                 <select class="has-fullwidth" v-model="form.division_id">
-                                    <option disabled="disabled" selected="selected">Division</option>
-                                    <option v-for="division in turnier.divisionen" :value="division.id">{{ division.name }}</option>
+                                    <option v-for="division in turnier.divisionen" :value="division.id" :key="division.id">{{ division.name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -20,10 +20,10 @@
             </div>
             <div class="columns" v-show="form.division_id">
                 <div class="column is-6">
-                    <bu-input name="anzahl_open" placeholder="maximale Anzahl Open" :error="form.errors.get('anzahl_open')" v-model="form.anzahl_open" v-focus></bu-input>
+                    <bu-input type="number" name="anzahl_open" placeholder="maximale Anzahl Open" :error="form.errors.get('anzahl_open')" v-model="form.anzahl_open" v-focus></bu-input>
                 </div>
                 <div class="column is-6">
-                    <bu-input name="anzahl_frauen" placeholder="maximale Anzahl Damen" :error="form.errors.get('anzahl_frauen')" v-model="form.anzahl_frauen" v-focus></bu-input>
+                    <bu-input type="number" name="anzahl_frauen" placeholder="maximale Anzahl Damen" :error="form.errors.get('anzahl_frauen')" v-model="form.anzahl_frauen" v-focus></bu-input>
                 </div>
             </div>
             <div class="columns">
@@ -52,6 +52,7 @@ export default {
                 anzahl_open: 0,
                 anzahl_frauen: 0,
                 division_id: null,
+                turnier_id: this.turnier.id,
             })
         }
     },

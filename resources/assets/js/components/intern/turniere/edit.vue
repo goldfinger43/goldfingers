@@ -53,6 +53,7 @@
                         </div>
                         <div class="columns">
                             <div class="column">
+                                <label class="label">Untergrund</label>
                                 <label class="checkbox">
                                     <input type="checkbox" v-model="form.untergrund" id="Rasen" value="Rasen">
                                     Rasen
@@ -67,6 +68,7 @@
                                 </label>
                             </div>
                             <div class="column">
+                                <label class="label">Unter freiem Himmel?</label>
                                 <label class="checkbox">
                                     <input type="checkbox" v-model="form.indoor_outdoor" id="indoor" value="Indoor">
                                     Indoor
@@ -77,14 +79,16 @@
                                 </label>
                             </div>
                         </div>
+                        <label class="label">Divisionen</label>
                         <div class="columns">
-                            <div class="column " v-for="division in divisionen">
+                            <div class="column" v-for="division in divisionen" :key="division.id">
                                 <label class="checkbox" >
                                     <input type="checkbox" v-model="form.divisionen" id="divisionen" :value="division.id" >
                                     {{ division.name }}
                                 </label>
                             </div>
                         </div>
+                        
                         <div class="columns">
                             <div class="column">
                                 <div class="control">
@@ -116,7 +120,7 @@ export default {
             turnier: {
                 slug: '' 
             },
-            form: null,
+            form: new Form({}),
             divisionen: [],
         }
     },
@@ -141,15 +145,8 @@ export default {
     beforeRouteEnter (to, from, next) {
         Event.fire('loading');
 
-        // axios.get('turnier/' + to.params.slug)
-        //     .then( (response) => {
-        //         Event.fire('loaded');
-        //         next(vm => vm.setTurnier(response.data))
-        //     } )
-
         axios.all([ axios.get('turnier/' + to.params.slug), axios.get('division') ])
             .then(axios.spread((turnier, division) => {
-                console.log(turnier, division);
                 Event.fire('loaded');
                 next(vm => vm.setData(turnier.data, division.data))
             }))

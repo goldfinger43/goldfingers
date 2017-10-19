@@ -15,13 +15,20 @@ class Team extends Model
         'name', 'anzahl_open', 'anzahl_frauen', 'turnier_id', 'division_id'
     ];
 
+    protected $with = [ 'division', 'users' ];
+
     public function turnier()
     {
-        return $this->belongsTo('App/Models/Turnier');
+        return $this->belongsTo(Turnier::class);
     }
 
     public function division()
     {
-        return $this->belongsTo('App/Models/Division');
+        return $this->belongsTo(Division::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'team_user', 'user_id', 'team_id');
     }
 }

@@ -41,7 +41,7 @@ class Turnier extends Model
      *
      * @var array
      */
-    protected $with = ['divisionen'];
+    protected $with = ['divisionen', 'teams'];
 
     /**
      * Get the options for generating the slug.

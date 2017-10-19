@@ -78,9 +78,22 @@
                         </div>
                     </div>
                     <div class="columns">
-                        <div class="column is-6">
+                        <div class="column is-12">
                             <p class="title is-4 has-text-centered">Teams</p>
                             <hr>
+                            <div class="columns" v-for="team in turnier.teams">
+                                <div class="column is-6">
+                                    <p class="title is-5 has-text-centered" >
+                                        {{ team.name }}
+                                        <span class="tag is-light has-hm-02" v-text="team.division.name"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="columns" v-if="!turnier.teams.length">
+                                <div class="column is-6">
+                                    <p class="title is-5 has-text-centered">Bitte neues Team anlegen</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

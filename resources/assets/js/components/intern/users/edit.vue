@@ -31,8 +31,9 @@
                                 <bu-input name="nachname" placeholder="Nachname" :error="form.errors.get('nachname')" v-model="form.nachname"></bu-input>
                             </div>
                             <div class="column">
+                                <label :for="form.geschlecht" class="label">Geschlecht</label>
                                 <div class="select is-fullwidth">
-                                    <select v-model="form.geschlecht">
+                                    <select :id="form.geschlecht" v-model="form.geschlecht">
                                         <option>männlich</option>
                                         <option>weiblich</option>
                                     </select>
