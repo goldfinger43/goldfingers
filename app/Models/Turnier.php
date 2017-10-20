@@ -17,7 +17,7 @@ class Turnier extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'von_datum', 'bis_datum', 'strasse_nr', 'ort', 'plz', 'land', 'beschreibung', 'teamfee', 'untergrund', 'indoor_outdoor', 'status', 'slug'
+        'name', 'von_datum', 'bis_datum', 'strasse_nr', 'ort', 'plz', 'land', 'beschreibung', 'teamfee', 'playersfee', 'untergrund', 'indoor_outdoor', 'status', 'slug'
     ];
 
     /**
@@ -25,7 +25,7 @@ class Turnier extends Model
      *
      * @var array
      */
-    protected $appends = ['adresse'];
+    protected $appends = ['adresse', 'beschreibung_formatiert'];
 
     protected $table = 'turniere';
 
@@ -34,6 +34,8 @@ class Turnier extends Model
     protected $casts = [
         'untergrund' => 'array',
         'indoor_outdoor' => 'array',
+        'teamfee' => 'float',
+        'playersfee' => 'float',
     ];
 
     /**
@@ -109,8 +111,8 @@ class Turnier extends Model
                 $this->land;
     }
 
-    public function getBeschreibungAttribute($text)
+    public function getBeschreibungFormatiertAttribute()
     {
-        return nl2br($text);
+        return nl2br($this->beschreibung);
     }
 }

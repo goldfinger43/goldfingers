@@ -23,8 +23,8 @@ class CreateTurniereTable extends Migration
             $table->string('plz')->nullable();
             $table->string('land')->nullable();
             $table->text('beschreibung')->nullable();
-            $table->float('teamfee')->nullable();
-            $table->float('playersfee')->nullable();
+            $table->float('teamfee')->nullable()->default(0);
+            $table->float('playersfee')->nullable()->default(0);
             $table->string('untergrund');
             $table->string('indoor_outdoor')->nullable();
             $table->string('slug');

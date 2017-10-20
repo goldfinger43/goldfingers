@@ -66,13 +66,31 @@
                                                 </span>
                                             </div>
                                             <div class="column has-flex-start-center">
-                                                <p v-html="turnier.adresse"></p>
+                                                <a :href="'https://www.google.de/maps/place/' + 
+                                                            turnier.strasse_nr + ' ' +
+                                                            turnier.plz + ' ' +
+                                                            turnier.ort" 
+                                                    v-html="turnier.adresse"
+                                                    target="blank_"></a>
+                                            </div>
+                                        </div>
+                                        <div class="columns">
+                                            <div class="column is-5 has-flex-end-center">
+                                                <span class="icon is-medium">
+                                                    <i class="fa fa-euro"></i>
+                                                </span>
+                                            </div>
+                                            <div class="column has-flex-start-center">
+                                                <p >
+                                                    Teamfee: {{ turnier.teamfee | currency }}<br>
+                                                    Playersfee: {{ turnier.playersfee | currency }}
+                                                </p>
                                             </div>
                                         </div>
                                 </div>
 
                                 <div class="column is-half-desktop">
-                                    <p v-html="turnier.beschreibung"></p>
+                                    <p v-html="turnier.beschreibung_formatiert"></p>
                                 </div>
                             </div>
                         </div>

@@ -53,6 +53,14 @@
                         </div>
                         <div class="columns">
                             <div class="column">
+                                <bu-input name="teamfee" placeholder="Teamfee" type="number" :error="form.errors.get('teamfee')" v-model="form.teamfee"></bu-input>
+                            </div>
+                            <div class="column">
+                                <bu-input name="playersfee" placeholder="Playersfee" type="number" :error="form.errors.get('playersfee')" v-model="form.playersfee"></bu-input>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
                                 <label class="label">Untergrund</label>
                                 <label class="checkbox">
                                     <input type="checkbox" v-model="form.untergrund" id="Rasen" value="Rasen">
@@ -89,6 +97,7 @@
                             </div>
                         </div>
                         
+                        <label class="label">Beschreibung</label>
                         <div class="columns">
                             <div class="column">
                                 <div class="control">

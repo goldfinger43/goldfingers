@@ -1,7 +1,7 @@
 <template>
     <div class="field">
         <label :for="name" class="label" v-text="placeholder" v-if="label"></label>
-        <div class="control " v-if="date">
+        <div class="control " v-if="date || cleave">
             <div class="control has-icons-right ">
                 <cleave :placeholder="placeholder" :options="cleaveOptions" :title="title" :id="name" :name="name" @input="updateValue($event)" class="input" :class="{ 'is-danger': hasError }"></cleave>
                 <span class="icon is-small is-right" v-if="hasError">
@@ -52,6 +52,7 @@ export default {
             type: String,
             default: ''
         },
+        cleave: false,
         cleaveOptions: {
             type: Object,
             default() {

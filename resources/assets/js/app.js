@@ -18,6 +18,18 @@ window.Form = Form;
 import VueSweetalert2 from 'vue-sweetalert2';
 Vue.use(VueSweetalert2);
 
+import VueCurrencyFilter from 'vue-currency-filter';
+Vue.use(VueCurrencyFilter, 
+{
+    symbol : '€', 
+    thousandsSeparator: '.',
+    fractionCount: 2,
+    fractionSeparator: ',',
+    symbolPosition: 'back',
+    symbolSpacing: true
+})
+
+
 //register Router
 import VueRouter from 'vue-router';
 import { Routes } from './routes/all';
